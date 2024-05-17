@@ -28,7 +28,7 @@ pipeline {
             success{
                 mail to: "regina.arissaputri@gmail.com",
                 subject: "Test Status Email",
-                body: "Test was successful",
+                body: "Test was successful"
                 //attach log file
                 // attachLog: true
             }
