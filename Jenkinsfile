@@ -20,23 +20,28 @@ pipeline {
             }
         }
         }
-        stage('Test') {
+        stage('Unit and Integration Test') {
             steps {
                 echo "Running unit tests"
                 echo "Running integration tests"
             }
         }
-        stage('Code Qualtiy Check') {
+        stage('Code Analysis') {
             steps {
                 echo "Check the Quality of the Code"
             }
         }
-        stage('Deploy') {
+        stage('Security Scan') {
+            steps {
+                echo "Security scanning"
+            }
+        }
+        stage('Deploy to Staging') {
             steps {
                 echo "Deploy the application to the ${env.TESTING_ENVIRONMENT} environment specified by the environment variable"
             }
         }
-        stage('Approval') {
+        stage('Integration Test on Staging') {
             steps {
                 sleep time: 10, unit: 'SECONDS'
                 echo 'Manual approval received'
