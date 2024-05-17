@@ -9,7 +9,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                echo "Fetch the source code from the directory path"
                 echo "compile the code and generate any necessary artifacts"
+                echo "Run Maven clean package"
                 //Build step is to compile and assemble source code to deployable format
                 // ex: exe file, or installer
                 // the tools used depends on programming language
@@ -19,18 +21,23 @@ pipeline {
         }
         stage('Unit and Integration Test') {
             steps {
-                echo "Running unit tests"
-                echo "Running integration tests"
-
+                echo "Running unit tests on each component in JUnit"
+                echo "Running integration tests on the whole system to test intraction with Katalon Studio"
+                //Testing is crucial step to ensure that the product delivered acts as expected
+                //Unit tests is the first layer, testing the smallest unit in the code.
+                //Integration tests is the second layer, it tests the interation between the units
+                //thus ensuring that the product runs smoothly as a whole (ready to be deployed)
+                //Unit test is executed within the development environment using the tool that is specific for the language
+                //we can use JUnit for unit testing in  Java
+                //Integration test can be done using Katalon Studio that can simulate user interaction with the system
             }
         post{
             //if success, send success email
             success{
-                mail to: "regina.arissaputri@gmail.com",
-                subject: "Test Status Email",
+                emailext subject: "Test Status Email",
                 body: "Test was successful"
-                //attach log file
-                // attachLog: true
+                to: "regina.arissaputri@gmail.com",
+                attachLog: true
             }
             // //if failure, send failure email
             // failure{
