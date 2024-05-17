@@ -36,7 +36,7 @@ pipeline {
             success{
                 archiveArtifacts 'build.log' // Archive the build log as an artifact
                 emailext subject: "Test Status Email",
-                body: "Test was successful"
+                body: "Test was successful",
                 to: "regina.arissaputri@gmail.com",
                 attachmentsPattern: 'build.log' // Attach the archived build log to the email
             }
