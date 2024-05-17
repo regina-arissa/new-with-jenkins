@@ -30,7 +30,7 @@ pipeline {
                 subject: "Test Status Email",
                 body: "Test was successful",
                 //attach log file
-                attachLog: true
+                // attachLog: true
             }
             //if failure, send failure email
             failure{
@@ -38,7 +38,7 @@ pipeline {
                 subject: "Test Status Email",
                 body: "Test has failed",
                 //attach log file
-                attachLog: true
+                // attachLog: true
             }
         }
         }
