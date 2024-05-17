@@ -34,10 +34,18 @@ pipeline {
         post{
             //if success, send success email
             success{
-                emailext subject: "Test Status Email",
-                body: "Test was successful",
-                to: "regina.arissaputri@gmail.com",
-                attachLog: true
+                script {
+                // Ensure the Email Extension Plugin is used correctly
+                    emailext(
+                        to: 'regina.arissaputri@gmail.com',
+                        subject: 'Test Status Email',
+                        body: 'Test was successful',
+                        attachLog: true,  // Attach the build log
+                        compressLog: true, // Compress the build log before attaching
+                        attachmentsPattern: '*.log', // Attach additional log files
+                        mimeType: 'text/html'
+                    )
+                }
             }
             // //if failure, send failure email
             // failure{
