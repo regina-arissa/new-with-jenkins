@@ -34,9 +34,9 @@ pipeline {
         post{
             //if success, send success email
             success{
-                emailext subject: "Test Status Email",
-                body: "Test was successful"
-                to: "regina.arissaputri@gmail.com",
+                mail to: "regina.arissaputri@gmail.com",
+                subject: "Test Status Email",
+                body: "Test was successful",
                 attachLog: true
             }
             // //if failure, send failure email
