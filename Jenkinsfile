@@ -34,10 +34,11 @@ pipeline {
         post{
             //if success, send success email
             success{
-                mail to: "regina.arissaputri@gmail.com",
-                subject: "Test Status Email",
-                body: "Test was successful",
-                attachLog: true
+                archiveArtifacts 'build.log' // Archive the build log as an artifact
+                emailext subject: "Test Status Email",
+                body: "Test was successful"
+                to: "regina.arissaputri@gmail.com",
+                attachmentsPattern: 'build.log' // Attach the archived build log to the email
             }
             // //if failure, send failure email
             // failure{
