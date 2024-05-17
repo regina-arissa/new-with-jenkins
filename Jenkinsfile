@@ -31,18 +31,23 @@ pipeline {
                 //we can use JUnit for unit testing in  Java
                 //Integration test can be done using Katalon Studio that can simulate user interaction with the system
             }
-        post{
-            //if success, send success email
-            success{
+
+        post {
+            always {
                 script {
-                // Ensure the Email Extension Plugin is used correctly
+                    archiveArtifacts artifacts: '*.log', allowEmptyArchive: true
+                }
+            }
+            //if success, send success email
+            success {
+                script {
                     emailext(
                         to: 'regina.arissaputri@gmail.com',
-                        subject: 'Test Status Email',
-                        body: 'Test was successful',
-                        attachLog: true,  // Attach the build log
-                        compressLog: true, // Compress the build log before attaching
-                        attachmentsPattern: '*.log', // Attach additional log files
+                        subject: 'Unit and Integration Test Status: SUCCESS',
+                        body: 'Unit and Integration tests were successful',
+                        attachLog: true,
+                        compressLog: true,
+                        attachmentsPattern: '*.log',
                         mimeType: 'text/html'
                     )
                 }
