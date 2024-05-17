@@ -32,14 +32,14 @@ pipeline {
                 //attach log file
                 // attachLog: true
             }
-            //if failure, send failure email
-            failure{
-                mail to: "regina.arissaputri@gmail.com",
-                subject: "Test Status Email",
-                body: "Test has failed",
-                //attach log file
-                // attachLog: true
-            }
+            // //if failure, send failure email
+            // failure{
+            //     mail to: "regina.arissaputri@gmail.com",
+            //     subject: "Test Status Email",
+            //     body: "Test has failed",
+            //     //attach log file
+            //     // attachLog: true
+            // }
         }
         }
         stage('Code Analysis') {
