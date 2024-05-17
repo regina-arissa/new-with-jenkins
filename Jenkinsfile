@@ -9,22 +9,38 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-            echo "Fetch the source code from the directory path: ${env.DIRECTORY_PATH}"
-            echo "compile the code and generate any necessary artifacts"
-        }
-        post{
-            success{
-                mail to: "regina.arissaputri@gmail.com",
-                subject: "Build Status Email",
-                body: "Build was successful"
+                echo "compile the code and generate any necessary artifacts"
+                //Build step is to compile and assemble source code to deployable format
+                // ex: exe file, or installer
+                // the tools used depends on programming language
+                // for Java, the tools used is usually Maven or Gradle
+                //Let's say we are developing an Android mobile app, we can use Gradle
             }
-        }
         }
         stage('Unit and Integration Test') {
             steps {
                 echo "Running unit tests"
                 echo "Running integration tests"
+
             }
+        post{
+            //if success, send success email
+            success{
+                mail to: "regina.arissaputri@gmail.com",
+                subject: "Test Status Email",
+                body: "Test was successful",
+                //attach log file
+                attachLog: true
+            }
+            //if failure, send failure email
+            failure{
+                mail to: "regina.arissaputri@gmail.com",
+                subject: "Test Status Email",
+                body: "Test has failed",
+                //attach log file
+                attachLog: true
+            }
+        }
         }
         stage('Code Analysis') {
             steps {
@@ -35,6 +51,25 @@ pipeline {
             steps {
                 echo "Security scanning"
             }
+            
+        // post{
+        //     //if success, send success email
+        //     success{
+        //         mail to: "regina.arissaputri@gmail.com",
+        //         subject: "Test Status Email",
+        //         body: "Security Scan was successful",
+        //         //attach log file
+        //         attachLog: true
+        //     }
+        //     //if failure, send failure email
+        //     failure{
+        //         mail to: "regina.arissaputri@gmail.com",
+        //         subject: "Test Status Email",
+        //         body: "Security Scan has failed",
+        //         //attach log file
+        //         attachLog: true
+        //     }
+        // }
         }
         stage('Deploy to Staging') {
             steps {
