@@ -1,4 +1,5 @@
 # new-with-jenkins
+# Integrating Github with Jenkins
 1. Create a GitHub repository and configure it to be used with Jenkins.
 2. Create a Jenkins job that is designated to run the pipeline. The job should be triggered
 with a short delay whenever a new commit is pushed to the GitHub repository. So
