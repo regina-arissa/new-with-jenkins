@@ -9,6 +9,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                echo "Adding short delay for the changes to stabilize"
+                sleep time: 60, unit: 'SECONDS'
+
                 echo "Fetch the source code from the directory path"
                 echo "compile the code and generate any necessary artifacts"
                 echo "Run Maven clean package"
@@ -115,7 +118,7 @@ pipeline {
                 echo "Setting up the Staging Environment"
                 echo "Provisioning the EC2 instance on AWS"
                 echo "Use AWS CLI to copy artifacts to AWS EC2 instance and run deployment command"
-                echo "Deploy the application to the ${env.TESTING_ENVIRONMENT} environment specified"
+                echo "Deploy the application to the ${env.TESTING_ENVIRONMENT} testing environment specified"
                 //This stage deploys the code to staging, which is a replica of the production environment,
                 // this is to test the code for the final time before releasing it to production
                 //there a a few tests, such as user acceptance testing (UAT), performance testing, and integration testing with other systems.
@@ -125,14 +128,29 @@ pipeline {
         }
         stage('Integration Test on Staging') {
             steps {
-                sleep time: 10, unit: 'SECONDS'
-                echo 'Manual approval received'
+                echo "Preparing the staging environment for integration stage"
+                echo "executing integration test on staging environment"
+                echo "executing end-to-end test with Katalon Studio"
+                echo "executing API test using Newman (Postman command line tool)"
+                //this test does testing for the code in the staging environment (which is a replica of the production environment)
+                //this test is to ensure that the code behaves as expected even in the production environment
+                // end to end tests the complete workflow of the code from start to finish to simulate real user scenarios to verify the system as a whole
+                // Katalon Studio can be used again for End-to-end testing
+                // API testing tests the application programming interfaces (APIs) directly, tests the back-end functionality, reliability, performance, and security
+                // Postman is a common tool to test API, especially for debugging API
+
+
             }
         
         }
         stage('Deploy to Production') {
             steps {
-                echo "Deploying the code to the ${env.PRODUCTION_ENVIRONMENT} environment"
+                echo "Hosting server for production with AWS EC2"
+                echo "Deploying the code to the ${env.PRODUCTION_ENVIRONMENT} live environment"
+                // after all the testing is done and the code behaves as expected in both controlled environment and production environment
+                // it is time to deploy the final code to the production stage to be accessible to end-user.
+                // it involves making the application available for actual use by customers or stakeholders.
+                // thus, this means the code is now in live environment, accessible for public or end-users.
             }
         }
     
